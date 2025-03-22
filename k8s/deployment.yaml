@@ -64,7 +64,7 @@ spec:
         - name: DB_NAME
           value: ecommerce
         - name: DB_PORT
-          value: 5432
+          value: "5432"
         - name: FLASK_APP
           value: index.py
 ---
