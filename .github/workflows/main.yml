@@ -41,10 +41,7 @@ jobs:
         uses: actions/checkout@v4.2.2
 
       - name: Criar kubeconfig a partir do secret
-        run: |
-          cat <<EOF > kubeconfig
-          ${{ secrets.K8S_KUBECONFIG }}
-          EOF
+        run: echo "${{ secrets.K8S_KUBECONFIG }}" > kubeconfig
 
       - name: Deploy no Kubernetes
         uses: azure/k8s-deploy@v5
@@ -56,5 +53,6 @@ jobs:
           images: |
             ronaldobrisa/fake-shop-desafio-v2:v${{ github.run_number }}
 
-      - name: Cleanup - Remover kubeconfig
+      - name: Limpar kubeconfig
         run: rm kubeconfig
+          
