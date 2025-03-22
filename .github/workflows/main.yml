@@ -50,6 +50,9 @@ jobs:
       - name: Informações do Cluster
         run: kubectl cluster-info --kubeconfig ./kubeconfig
 
+      - name: Verificar versão do kubectl
+        run: kubectl version --kubeconfig ./kubeconfig
+
       - name: Deploy no Kubernetes (inseguro)
         uses: azure/k8s-deploy@v5
         with:
