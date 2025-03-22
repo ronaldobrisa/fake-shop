@@ -43,8 +43,8 @@ jobs:
       - name: Criar kubeconfig a partir do secret
         run: |
           cat <<EOF > kubeconfig
-${{ secrets.K8S_KUBECONFIG }}
-EOF
+          ${{ secrets.K8S_KUBECONFIG }}
+          EOF
 
       - name: Deploy no Kubernetes
         uses: azure/k8s-deploy@v5
