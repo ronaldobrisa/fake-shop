@@ -53,20 +53,20 @@ spec:
       - name: fakeshop
         image: ronaldobrisa/fake-shop-desafio-v2:v3
         ports:
-          - containerPort: 5000
+        - containerPort: 5000
         env:
-          - name: DB_HOST
-            value: postgres # Usa o nome do serviço postgres
-          - name: DB_USER
-            value: ecommerce
-          - name: DB_PASSWORD
-            value: pg1234
-          - name: DB_NAME
-            value: ecommerce
-          - name: DB_PORT
-            value: "5432" # Adiciona a porta explicitamente
-          - name: FLASK_APP
-            value: index.py
+        - name: DB_HOST
+          value: postgres
+        - name: DB_USER
+          value: ecommerce
+        - name: DB_PASSWORD
+          value: pg1234
+        - name: DB_NAME
+          value: ecommerce
+        - name: DB_PORT
+          value: 5432
+        - name: FLASK_APP
+          value: index.py
 ---
 apiVersion: v1
 kind: Service
@@ -79,4 +79,3 @@ spec:
       targetPort: 5000
   selector:
     app: fakeshop
-    
