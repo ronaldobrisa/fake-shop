@@ -37,13 +37,6 @@ jobs:
       - name: Criar kubeconfig a partir do secret
         run: echo "${{ secrets.K8S_KUBECONFIG }}" > kubeconfig
 
-      - name: Setar contexto do cluster
-        uses: azure/k8s-set-context@v4
-        with:
-          method: kubeconfig
-          kubeconfig: ./kubeconfig
-          cluster-type: generic
-
       - name: Deploy no Kubernetes
         uses: azure/k8s-deploy@v5
         with:
