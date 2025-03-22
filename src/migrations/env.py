@@ -10,6 +10,10 @@ from alembic import context
 fileConfig(context.config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
+# Adicionando script_location
+config = context.config
+script_location = config.get_main_option("script_location")
+
 def get_engine():
     """Obtém o motor do SQLAlchemy a partir da aplicação Flask."""
     try:
@@ -42,7 +46,7 @@ def run_migrations_offline():
     """Executa as migrações no modo offline."""
     url = context.config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=url, target_metadata=get_metadata(), literal_binds=True
+        url=url, target_metadata=get_metadata(), literal_binds=True, script_location=script_location
     )
 
     with context.begin_transaction():
@@ -59,6 +63,7 @@ def run_migrations_online():
         context.configure(
             connection=connection,
             target_metadata=get_metadata(),
+            script_location=script_location,
             **current_app.extensions['migrate'].configure_args
         )
 
