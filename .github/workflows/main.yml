@@ -37,6 +37,16 @@ jobs:
       - name: Criar kubeconfig a partir do secret
         run: echo "${{ secrets.K8S_KUBECONFIG }}" > kubeconfig
 
+      - name: Setar contexto do cluster
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ./kubeconfig
+          cluster-type: generic
+
+      - name: Verificar contexto do cluster
+        run: kubectl config current-context --kubeconfig ./kubeconfig
+
       - name: Deploy no Kubernetes
         uses: azure/k8s-deploy@v5
         with:
@@ -44,11 +54,10 @@ jobs:
             k8s/deployment.yaml
           images: |
             ronaldobrisa/fake-shop-desafio-v2:v${{ github.run_number }}
+          kubectl-flags: --validate=false
 
+      - name: Verificação de deploy
+        run: kubectl get deployment fakeshop --kubeconfig ./kubeconfig
 
-
-
-
-
-
-  
+      - name: Limpar kubeconfig
+        run: rm kubeconfig
