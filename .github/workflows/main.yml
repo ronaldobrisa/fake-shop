@@ -48,6 +48,7 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_KUBECONFIG }}
+          context: k3d-k3s-default
          
 
       - name: Deploy no Kubernetes
