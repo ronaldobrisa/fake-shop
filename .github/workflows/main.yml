@@ -51,7 +51,6 @@ jobs:
             k8s/deployment.yaml
           images: |
             ronaldobrisa/fake-shop-desafio-v2:v${{ github.run_number }}
-          arguments: --insecure-skip-tls-verify --validate=false
-
+    
       - name: Limpar kubeconfig
         run: rm kubeconfig
