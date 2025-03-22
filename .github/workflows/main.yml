@@ -42,7 +42,6 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ./kubeconfig
-          context: k3d-k3s-default
           cluster-type: generic
 
       - name: Deploy no Kubernetes
