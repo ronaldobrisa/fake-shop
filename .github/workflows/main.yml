@@ -43,17 +43,9 @@ jobs:
           method: kubeconfig
           kubeconfig: ./kubeconfig
           cluster-type: generic
+          context: do-nyc1-fake-shop-cluster # Adicionado o contexto desejado
 
-      - name: Verificar contexto do cluster
-        run: kubectl config current-context --kubeconfig ./kubeconfig
-
-      - name: Informações do Cluster
-        run: kubectl cluster-info --kubeconfig ./kubeconfig
-
-      - name: Verificar versão do kubectl
-        run: kubectl version --kubeconfig ./kubeconfig
-
-      - name: Deploy no Kubernetes (inseguro)
+      - name: Deploy no Kubernetes
         uses: azure/k8s-deploy@v5
         with:
           manifests: |
@@ -61,9 +53,6 @@ jobs:
           images: |
             ronaldobrisa/fake-shop-desafio-v2:v${{ github.run_number }}
           arguments: --insecure-skip-tls-verify --validate=false
-
-      - name: Verificação de deploy
-        run: kubectl get deployment fakeshop --kubeconfig ./kubeconfig
 
       - name: Limpar kubeconfig
         run: rm kubeconfig
