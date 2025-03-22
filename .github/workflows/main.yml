@@ -41,9 +41,8 @@ jobs:
         uses: azure/k8s-set-context@v4
         with:
           method: kubeconfig
-          kubeconfig: ./kubeconfig
-          cluster-type: generic
-          context: do-nyc1-fake-shop-cluster # Adicionado o contexto desejado
+          kubeconfig: ${{ secrets.K8S_KUBECONFIG }}
+         
 
       - name: Deploy no Kubernetes
         uses: azure/k8s-deploy@v5
