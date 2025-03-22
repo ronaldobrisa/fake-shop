@@ -47,6 +47,9 @@ jobs:
       - name: Verificar contexto do cluster
         run: kubectl config current-context --kubeconfig ./kubeconfig
 
+      - name: Informações do Cluster
+        run: kubectl cluster-info --kubeconfig ./kubeconfig
+
       - name: Deploy no Kubernetes
         uses: azure/k8s-deploy@v5
         with:
