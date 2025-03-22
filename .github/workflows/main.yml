@@ -50,14 +50,14 @@ jobs:
       - name: Informações do Cluster
         run: kubectl cluster-info --kubeconfig ./kubeconfig
 
-      - name: Deploy no Kubernetes
+      - name: Deploy no Kubernetes (inseguro)
         uses: azure/k8s-deploy@v5
         with:
           manifests: |
             k8s/deployment.yaml
           images: |
             ronaldobrisa/fake-shop-desafio-v2:v${{ github.run_number }}
-          kubectl-flags: --validate=false
+        kubectl-flags: --insecure-skip-tls-verify --validate=false
 
       - name: Verificação de deploy
         run: kubectl get deployment fakeshop --kubeconfig ./kubeconfig
