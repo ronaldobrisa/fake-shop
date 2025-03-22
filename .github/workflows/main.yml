@@ -38,26 +38,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do Código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Criar kubeconfig a partir do secret
         run: |
-          echo "${{ secrets.K8S_KUBECONFIG }}" > ./kubeconfig
-
-      - name: Setar contexto do cluster
-        uses: azure/k8s-set-context@v4
-        with:
-          method: kubeconfig
-          kubeconfig: ./kubeconfig
-          cluster-type: generic
+          cat <<EOF > kubeconfig
+${{ secrets.K8S_KUBECONFIG }}
+EOF
 
       - name: Deploy no Kubernetes
         uses: azure/k8s-deploy@v5
+        env:
+          KUBECONFIG: ./kubeconfig
         with:
           manifests: |
             k8s/deployment.yaml
           images: |
             ronaldobrisa/fake-shop-desafio-v2:v${{ github.run_number }}
 
-      - name: Limpar kubeconfig
-        run: rm ./kubeconfig
+      - name: Cleanup - Remover kubeconfig
+        run: rm kubeconfig
