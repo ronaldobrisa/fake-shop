@@ -21,7 +21,7 @@ jobs:
           context: ./src
           file: ./src/Dockerfile
           push: true
-          tags: ronaldobrisa/fake-shop-desafio-v2:v3
+          tags: ronaldobrisa/fake-shop-desafio-v2:v${{ github.run_number }}
 
       - run: echo "Enviar imagem Docker para o Docker Hub"
 
